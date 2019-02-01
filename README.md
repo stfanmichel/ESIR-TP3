@@ -30,3 +30,10 @@ c'est qu'il est temps de commiter vos modifications afin de pouvoir revenir à c
 Ceci vous permettra également de vous y retrouver lorsque le correctif vous sera fourni.
   
 # Initialisation d'un projet
+
+Il existe un module, express-generator pour vous aider à construire une arborescence de projet Express from sratch.
+C'est un bon outil pour débuter : https://slides.com/stephmichel/deck-4#/4/1
+
+Installer ezt utiliser cet outils pour initialiser votre projet.
+
+
