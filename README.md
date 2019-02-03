@@ -12,11 +12,8 @@ Objectifs :
   - Réaliser des services REST 
   
 Sujets abordés :
- - callback
- - promess
- - async/await
- - modules
- - fs
+ - REST
+ - 
  
 Lien utiles :
 
@@ -31,9 +28,19 @@ Ceci vous permettra également de vous y retrouver lorsque le correctif vous ser
   
 # Initialisation d'un projet
 
-Il existe un module, express-generator pour vous aider à construire une arborescence de projet Express from sratch.
+Il existe des modules comme par exemple, express-generator pour vous aider à construire une arborescence de projet Express from sratch.
 C'est un bon outil pour débuter : https://slides.com/stephmichel/deck-4#/4/1
+Cependant, afin de bien comprendre l'organisation en fichier nous l'allons pas utilise cet outils (dans un premier temp).
 
-Installer ezt utiliser cet outils pour initialiser votre projet.
+Comme les TP précédents, vous aller initier un nouveau projet GIT/npm (je ne rappelle pas les étapes ici, vous devez commencer à les connaitre).
 
+# STEP 1 : Premier service REST avec express
+Vous devez ici :
+  - créer un fichier principal (app.js).
+  - installer le module express
+  - Réaliser un permier serveur web basé sur express qui répond à l'URL http://localhost:3000/users en retournant au format JSON une liste d'utilisateurs.
+  
+  ## Aide :
+  
+    
 
