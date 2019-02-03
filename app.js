@@ -1,18 +1,13 @@
 const express = require('express')
+const bodyParser = require('body-parser');
+
+const usersRouter = require('./routes/users-v1')
 
 const app = express()
 const port = process.env.PORT || '3000'
 
-app.get('/users', (req, res) => {
-    res
-        .status(200)
-        .send([
-            {
-                name: 'Pedro Ramirez',
-                login: 'pedro'
-            }
-        ])
-})
+app.use(bodyParser.json())
+app.use('/v1/users', usersRouter)
 
 /**
  * Listen on provided port, on all network interfaces.
