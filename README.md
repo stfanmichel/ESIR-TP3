@@ -59,6 +59,12 @@ Exemple :
 Vous utiliserez les express.Router afin d'organiser proprement votre code (voir la fin de la page  https://expressjs.com/en/guide/routing.html).
 Pour cela vous créerez un répertoire "routes" qui contiendra un fichier dans lequel vous coderez l'ensemble des opérations demandées (Création, lecture, mise à jour, suppression, etc.).
 
+Pour retourner un code HTTP avec express :
+  
+    res.status(200).json(monObjet JSON)
+    
+Vous penserez (c'est une habitude à prendre) à inclure un numéro de version de votre api dasn l'URL de celle-ci (http://localhost:3000/v1/users).
+
 Vous utiliserez le module uuid (https://www.npmjs.com/package/uuid) afin de générer un identifiant unique aux objets "user" que vous créerez.
 
     const uuidv1 = require('uuid/v1');
@@ -84,10 +90,7 @@ Cette étape vous emmenera à manipuler des tableaux en Javascript. Voici ici qu
   Copier les propriétés d'un objet dans un autre objet (sans passer par une variable intermédiaire) : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
    
     Object.assign(oldObject, newObject)
-    
-  Retourner un code HTTP avec express :
-  
-    res.status(200).json(monObjet JSON)
+   
 
 ## Vérification des services REST
 A la fin de cette étape vous disposerez des services suivants :
