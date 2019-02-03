@@ -4,19 +4,20 @@ Nous avons utilisé dans les deux premiers TP le module http standard pour réal
 L'API http est très complète mais d'un peu trop "bas niveau".
 Il existe plusieurs modules node de plus haut niveau pour réaliser des serveur web, nous allons ici utiliser l'un des plus populaire : Express.
 
-Objectifs :
+## Objectifs :
   - Préparer un environnement pour express 
   - Comprendre la décomposition en fichier / répertoires
   - Comprendre les principes de Express
   - Utiliser et comprendre la notion de router
   - Réaliser des services REST 
   
-Sujets abordés :
- - REST
- - Securité (helmet)
+## Sujets abordés :
+ - Express
+ - REST / CRUD
+ - statefull et stateless
  - Optimisation (pattern cache)
  
-Lien utiles :
+## Lien utiles :
 
   - Outillage (npm, node, git, ab, postman etc.) : https://slides.com/stephmichel/deck-4#/
   
@@ -41,7 +42,12 @@ Vous devez ici :
   - installer le module express
   - Réaliser un permier serveur web basé sur express qui répond à l'URL http://localhost:3000/users en retournant au format JSON une liste d'utilisateurs.
   
-  ## Aide :
+ (tag: TP3-ESIR-STEP1)
   
-    
+# STEP 2 : Routes express et CRUD 
+Vous devez coder l'ensemble des opérations CRUD sur les users (Creation, Lecture, Mise à jour et Suppression) en se basant sur la sémantique http et en respectant les bonnes pratiques de nommage (voir cours ici https://slides.com/stephmichel/http#/7).
+
+Vous utiliserez les express.Router afin d'organiser proprement votre code (voir la fin de la page  https://expressjs.com/en/guide/routing.html).
+
+ (tag: TP3-ESIR-STEP2)
 
