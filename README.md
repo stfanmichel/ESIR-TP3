@@ -14,7 +14,7 @@ Il existe plusieurs modules node de plus haut niveau pour réaliser des serveur 
 ## Sujets abordés :
  - Express
  - REST / CRUD
- - statefull et stateless
+ - Pattern d'injection
  - Optimisation (pattern cache)
  
 ## Lien utiles :
@@ -59,11 +59,11 @@ Exemple :
 Vous utiliserez les express.Router afin d'organiser proprement votre code (voir la fin de la page  https://expressjs.com/en/guide/routing.html).
 Pour cela vous créerez un répertoire "routes" qui contiendra un fichier dans lequel vous coderez l'ensemble des opérations demandées (Création, lecture, mise à jour, suppression, etc.).
 
-Pour retourner un code HTTP avec express :
+Vous penserez à tester les cas limites (paramètres incorrects, objets non trouvé, etc.) et remonter le code HTTP adéquat (200, 201, 400, 404, etc.). Voir ici pour un rappel : https://slides.com/stephmichel/http#/7/4
   
-    res.status(200).json(monObjet JSON)
-    
-Vous penserez (c'est une habitude à prendre) à inclure un numéro de version de votre api dasn l'URL de celle-ci (http://localhost:3000/v1/users).
+Vous utiliserez le module body-parser (https://www.npmjs.com/package/body-parser) afin de pour facilement accéder aux body des requêtes HTTP de type POST ou PATCH.  
+  
+Vous penserez (c'est une bonne habitude à prendre) à inclure un numéro de version de votre api dasn l'URL de celle-ci (http://localhost:3000/v1/users).
 
 Vous utiliserez le module uuid (https://www.npmjs.com/package/uuid) afin de générer un identifiant unique aux objets "user" que vous créerez.
 
@@ -114,6 +114,25 @@ Exemples :
 
     curl -i -X DELETE http://localhost:3000/v1/users/45745c60-7b1a-11e8-9c9c-2d42b21b1a3e
 
-
  (tag: TP3-ESIR-STEP2)
 
+
+# STEP 3 : Externaliser l'accès aux données
+ Pour le moment les données (la variable qui contient le listers de users) sont stockées au niveau de la route ce qui n'est évidemment pas une bonne pratique.
+ Nous allons ici utiliser un pattern d'injection pour fournir à notre route un "module" qui lui permettra d'accéder au modèle de données sous-jacent en lui masquant l'implémentation (la route n'a pas à la connaître).
+ 
+ Vous allez donc créer un module qui répond à l'interface suivante :
+  - getAll() : Retourne la liste de tous les utilisateurs sous forme de tableau.
+  - get(id) : Retoune l'utilisateur qui a pour id le paramètre id.
+  - update(id) : Met à jour l'utilisateur qui a pour id le paramètre id.
+  - remove(id) : Supprime l'utilisateur qui a pour id le paramètre id.
+  - add(user) : Ajoute l'utilisateur en paramètre à la liste des utilisateurs. Assigne un id généré (uuid) à cet utilisateur et le retourne.
+        
+ Lors du chargement de la route dans app.js, vous lui fournirez votre implémentation de l'interface ci-dessus.
+ Modifier ensuite le code de votre "users route" pour utiliser l'interface.
+
+ Vérifiez à nouveau son fonctionnement à l'aide de curl comme à l'étape 2.
+ 
+ (tag: TP3-ESIR-STEP3)
+ 
+  
