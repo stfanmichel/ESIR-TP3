@@ -13,7 +13,8 @@ Objectifs :
   
 Sujets abordés :
  - REST
- - 
+ - Securité (helmet)
+ - Optimisation (pattern cache)
  
 Lien utiles :
 
