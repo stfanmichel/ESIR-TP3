@@ -1,28 +1,37 @@
 const express = require('express')
 const router = express.Router()
-const uuidv1 = require('uuid/v1');
 
-const users = [
-    {
-        id: '45745c60-7b1a-11e8-9c9c-2d42b21b1a3e',
-        name: 'Pedro Ramirez',
-        login: 'pedro',
-        age: 44
+let usersModel = undefined
+
+/* Control usermodel initialisation */
+router.use((req, res, next) => {
+    if (!usersModel) {
+        res
+            .status(500)
+            .json({message: `model not initialised`})
     }
-]
+    next()
+})
 
 /* GET a specific user by id */
 router.get('/:id', function (req, res, next) {
     const id = req.params.id
     if (id) {
-        const usersFound = users.filter((user) => user.id === id)
-        if (usersFound.length === 1) {
-            res.json(usersFound[0])
-        } else {
+        try {
+            const userFound = usersModel.get(id)
+            if (userFound) {
+                res.json(userFound)
+            } else {
+                res
+                    .status(404)
+                    .json({message: `User not found with id ${id}`})
+            }
+        } catch (exc) {
             res
-                .status(404)
-                .json({message: `User not found with id ${id}`})
+                .status(400)
+                .json({message: exc.message})
         }
+
     } else {
         res
             .status(400)
@@ -34,18 +43,22 @@ router.get('/:id', function (req, res, next) {
 router.post('/', function (req, res, next) {
     const newUser = req.body
 
-    // Control data to patch
-    if (validateUser(newUser)) {
-        newUser.id = uuidv1()
-        users.push(newUser)
-        req
-            .res
-            .status(201)
-            .send(newUser)
+    if (newUser) {
+        try {
+            const user = usersModel.add(newUser)
+            req
+                .res
+                .status(201)
+                .send(user)
+        } catch (exc) {
+            res
+                .status(400)
+                .json({message: exc.message})
+        }
     } else {
         res
             .status(400)
-            .json({message: `Invalid user data`})
+            .json({message: `Wrong parameters`})
     }
 })
 
@@ -55,38 +68,32 @@ router.patch('/:id', function (req, res, next) {
     const newUserProperties = req.body
 
     if (id && newUserProperties) {
-        const usersFound = users.filter((user) => user.id === id)
-
-        if (usersFound.length === 1) {
-            const oldUser = usersFound[0]
-
-            const newUser = {
-                ...oldUser,
-                ...newUserProperties
-            }
-
-            // Control data to patch
-            if (validateUser(newUser)) {
-                // Object.assign permet d'éviter la suppression de l'ancien élément puis l'ajout
-                // du nouveau Il assigne à l'ancien objet toutes les propriétés du nouveau
-                Object.assign(oldUser, newUser)
+        try {
+            if (id && newUserProperties) {
+                const updated = usersModel.update(id, newUserProperties)
                 res
                     .status(200)
-                    .json(newUser)
+                    .json(updated)
             } else {
+                res
+                    .status(400)
+                    .json({message: `Wrong parameter`})
+            }
+        } catch (exc) {
+            if (exc.message === 'user.not.found') {
+                res
+                    .status(404)
+                    .json({message: `User not found with id ${id}`})
+            } else if (exc.message === 'user.not.valid') {
                 res
                     .status(400)
                     .json({message: `Invalid user data`})
             }
-        } else {
-            res
-                .status(404)
-                .json({message: `User not found with id ${id}`})
         }
     } else {
         res
             .status(400)
-            .json({message: `Wrong parameter`})
+            .json({message: `Wrong parameters`})
     }
 })
 
@@ -94,17 +101,22 @@ router.patch('/:id', function (req, res, next) {
 router.delete('/:id', function (req, res, next) {
     const id = req.params.id
     if (id) {
-        // findIndex permet de retrouver la position d'un élément dans un tableau
-        const indexFound = users.findIndex((user) => user.id === id)
-        if (indexFound > -1) {
-            users.splice(indexFound, 1)
-            res
+        try {
+            usersModel.remove(id)
+            req
+                .res
                 .status(200)
                 .end()
-        } else {
-            res
-                .status(404)
-                .json({message: `User not found with id ${id}`})
+        } catch (exc) {
+            if (exc.message === 'user.not.found') {
+                res
+                    .status(404)
+                    .json({message: `User not found with id ${id}`})
+            } else {
+                res
+                    .status(400)
+                    .json({message: exc.message})
+            }
         }
     } else {
         res
@@ -115,15 +127,11 @@ router.delete('/:id', function (req, res, next) {
 
 /* GET all users */
 router.get('/', function (req, res, next) {
-    res.json(users)
+    res.json(usersModel.getAll())
 })
 
-function validateUser(user) {
-    let result = true
-    if (user && user.id && user.login && user.name) {
-        result = true
-    }
-    return result
+/** return a closure to initialize model */
+module.exports = (model) => {
+    usersModel = model
+    return router
 }
-
-module.exports = router
