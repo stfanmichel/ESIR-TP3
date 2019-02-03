@@ -19,10 +19,13 @@ Il existe plusieurs modules node de plus haut niveau pour réaliser des serveur 
  
 ## Lien utiles :
 
-  - Outillage (npm, node, git, ab, postman etc.) : https://slides.com/stephmichel/deck-4#/
-  
+  - Outillage (npm, node, git, curl, postman etc.) : https://slides.com/stephmichel/deck-4#/
   - Express : Le cours sur Express de Benoît. 
   
+## Modules node utilisés
+  - express : https://www.npmjs.com/package/express
+  - body-parser : https://www.npmjs.com/package/body-parser
+  - uuid : https://www.npmjs.com/package/uuid
   
 Pour le bon déroulement du TP et pour vous familiariser avec GIT, lorsque vous liser une ligne du genre (Tag: BLA-BLA-BLA), 
 c'est qu'il est temps de commiter vos modifications afin de pouvoir revenir à ce niveau de code plus tard si besoin. 
@@ -54,7 +57,7 @@ Exemple :
     {id = '45745c60-7b1a-11e8-9c9c-2d42b21b1a3e', login:'pedro', name:'Pedro Ramirez', age:35)
 
 Vous utiliserez les express.Router afin d'organiser proprement votre code (voir la fin de la page  https://expressjs.com/en/guide/routing.html).
-Pour cela vous créerez un répertoire "routes" qui contiendra un fichier users.js dans lequel vous coderez l'ensemble des opérations demandées (Création, lecture, suppression.
+Pour cela vous créerez un répertoire "routes" qui contiendra un fichier dans lequel vous coderez l'ensemble des opérations demandées (Création, lecture, mise à jour, suppression, etc.).
 
 Vous utiliserez le module uuid (https://www.npmjs.com/package/uuid) afin de générer un identifiant unique aux objets "user" que vous créerez.
 
@@ -63,14 +66,51 @@ Vous utiliserez le module uuid (https://www.npmjs.com/package/uuid) afin de gén
 
 Il n'y a pas besoin pour le moment de gérer la persistance fichier ou BDD des utilisateurs créés, une simple persistance mémoire dans un tableau suffira.
 
+## Rappels Javascript
+Cette étape vous emmenera à manipuler des tableaux en Javascript. Voici ici quelques rappels sur des méthodes qui pourront vous être utiles :
+
+  Filtrer un tableau : https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Array/filter
+    
+    const filteredArray = monTableau.filter((item)=> ... )
+    
+  Retrouver la position d'un élément dans un tableau : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex
+    
+    const index = monTableau.findIndex((item)=> item.id === ... )
+    
+  Supprimer un élément dans un tableau à partir de son index : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
+    
+    monTableau.splice(index,1)
+    
+  Copier les propriétés d'un objet dans un autre objet (sans passer par une variable intermédiaire) : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
+   
+    Object.assign(oldObject, newObject)
+    
+  Retourner un code HTTP avec express :
+  
+    res.status(200).json(monObjet JSON)
+
+## Vérification des services REST
 A la fin de cette étape vous disposerez des services suivants :
-    GET /users
-    GET /users/id
-    POST /users
-    DELETE /users/id
-    PATCH /users/id
+    GET /v1/users
+    GET /v1/users/id
+    POST /v1/users
+    PATCH /v1/users/id 
+    DELETE /v1/users/id
 
 Vérifiez leur fonctionnement avec l'outil de votre choix (curl, postman).
+
+Exemples :
+    
+    curl -i http://127.0.0.1:3000/v1/users
+
+    curl -i http://127.0.0.1:3000/v1/users/45745c60-7b1a-11e8-9c9c-2d42b21b1a3e  
+    
+    curl -i -X POST -H 'Content-Type: application/json' -d '{"name":"Robert", "login":"roro", "age":24}' http://localhost:3000/v1/users
+
+    curl -i -X PATCH -H 'Content-Type: application/json' -d '{"name":"Roberto", "age":24}' http://localhost:3000/v1/users/45745c60-7b1a-11e8-9c9c-2d42b21b1a3e
+
+    curl -i -X DELETE http://localhost:3000/v1/users/45745c60-7b1a-11e8-9c9c-2d42b21b1a3e
+
 
  (tag: TP3-ESIR-STEP2)
 
