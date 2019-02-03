@@ -128,11 +128,11 @@ Exemples :
   - remove(id) : Supprime l'utilisateur qui a pour id le paramètre id.
   - add(user) : Ajoute l'utilisateur en paramètre à la liste des utilisateurs. Assigne un id généré (uuid) à cet utilisateur et le retourne.
         
- Lors du chargement de la route dans app.js, vous lui fournirez votre implémentation de l'interface ci-dessus.
+ Lors du chargement de la route dans app.js, vous lui fournirez votre implémentation de l'interface ci-dessus (on utilisera une closure pour cela). 
  Modifier ensuite le code de votre "users route" pour utiliser l'interface.
+
+ La "users route" n'est maintenant plus dépendante directement du model. On verra dans un prochain TP qu'il s'agit d'une bonne pratique de programmation et que cela facile la réalisation des tests unitaires.
 
  Vérifiez à nouveau son fonctionnement à l'aide de curl comme à l'étape 2.
  
  (tag: TP3-ESIR-STEP3)
- 
-  
