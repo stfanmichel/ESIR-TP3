@@ -45,9 +45,32 @@ Vous devez ici :
  (tag: TP3-ESIR-STEP1)
   
 # STEP 2 : Routes express et CRUD 
-Vous devez coder l'ensemble des opérations CRUD sur les users (Creation, Lecture, Mise à jour et Suppression) en se basant sur la sémantique http et en respectant les bonnes pratiques de nommage (voir cours ici https://slides.com/stephmichel/http#/7).
+Vous devez coder l'ensemble des opérations CRUD sur les users (avec en plus la possibilité de listeer tous les utilisateurs) en se basant sur la sémantique http et en respectant les bonnes pratiques de nommage (voir cours ici https://slides.com/stephmichel/http#/7).
+
+Votre user devra posséder les propriétés suivantes (au minimum) : id, login, age et name.
+
+Exemple : 
+ 
+    {id = '45745c60-7b1a-11e8-9c9c-2d42b21b1a3e', login:'pedro', name:'Pedro Ramirez', age:35)
 
 Vous utiliserez les express.Router afin d'organiser proprement votre code (voir la fin de la page  https://expressjs.com/en/guide/routing.html).
+Pour cela vous créerez un répertoire "routes" qui contiendra un fichier users.js dans lequel vous coderez l'ensemble des opérations demandées (Création, lecture, suppression.
+
+Vous utiliserez le module uuid (https://www.npmjs.com/package/uuid) afin de générer un identifiant unique aux objets "user" que vous créerez.
+
+    const uuidv1 = require('uuid/v1');
+    uuidv1(); // ⇨ '45745c60-7b1a-11e8-9c9c-2d42b21b1a3e'
+
+Il n'y a pas besoin pour le moment de gérer la persistance fichier ou BDD des utilisateurs créés, une simple persistance mémoire dans un tableau suffira.
+
+A la fin de cette étape vous disposerez des services suivants :
+    GET /users
+    GET /users/id
+    POST /users
+    DELETE /users/id
+    PATCH /users/id
+
+Vérifiez leur fonctionnement avec l'outil de votre choix (curl, postman).
 
  (tag: TP3-ESIR-STEP2)
 
