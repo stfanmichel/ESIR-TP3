@@ -15,7 +15,6 @@ Il existe plusieurs modules node de plus haut niveau pour réaliser des serveur 
  - Express
  - REST / CRUD
  - Pattern d'injection
- - Optimisation (pattern cache)
  
 ## Lien utiles :
 
