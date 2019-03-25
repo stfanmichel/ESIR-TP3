@@ -25,13 +25,21 @@ Il existe plusieurs modules node de plus haut niveau pour réaliser des serveur 
 
 ## Modules node utilisés
 
-- express : https://www.npmjs.com/package/express
+- express : https://slides.com/stephmichel/deck-4#/4/1 et https://www.npmjs.com/package/express
 - body-parser : https://www.npmjs.com/package/body-parser
 - uuid : https://www.npmjs.com/package/uuid
+- nodemon : https://slides.com/stephmichel/deck-4#/4/2 et https://www.npmjs.com/package/nodemon
 
 Pour le bon déroulement du TP et pour vous familiariser avec GIT, lorsque vous liser une ligne du genre (Tag: BLA-BLA-BLA),
 c'est qu'il est temps de commiter vos modifications afin de pouvoir revenir à ce niveau de code plus tard si besoin.
+
+     git add .
+     git commit -m "Mon message de commit"
+     git tag "BLA-BLA-BLA"
+
 Ceci vous permettra également de vous y retrouver lorsque le correctif vous sera fourni.
+
+     git checkout "BLA-BLA-BLA"
 
 # Initialisation d'un projet
 
